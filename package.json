@@ -15,6 +15,8 @@
     "fix": "pnpm '/^(prettier|lint:fix|typecheck)$/'"
   },
   "dependencies": {
+    "@mantine/core": "^8.3.2",
+    "@mantine/hooks": "^8.3.2",
     "@tanstack/react-form": "^1.23.4",
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-router": "^1.132.23",
@@ -42,6 +44,9 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-compiler": "19.1.0-rc.2",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "postcss": "^8.5.6",
+    "postcss-preset-mantine": "^1.18.0",
+    "postcss-simple-vars": "^7.0.1",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.45.0",

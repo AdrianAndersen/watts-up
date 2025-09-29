@@ -59,7 +59,7 @@ jobs:
         run: pnpm lint
 
   build:
-    name: Build Frontend
+    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -72,5 +72,5 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
-      - name: Build Frontend
+      - name: Build
         run: pnpm build

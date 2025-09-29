@@ -1,4 +1,6 @@
 /// <reference types="vite/client" />
+import "@mantine/core/styles.css";
+
 import type { PropsWithChildren } from "react";
 import {
   Outlet,
@@ -11,6 +13,7 @@ import { TanStackDevtools } from "@tanstack/react-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { FormDevtoolsPlugin } from "@tanstack/react-form-devtools";
+import { AppShell, MantineProvider, Title } from "@mantine/core";
 
 export const Route = createRootRoute<{
   queryClient: QueryClient;
@@ -47,7 +50,14 @@ function RootDocument({ children }: Readonly<PropsWithChildren>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <MantineProvider>
+          <AppShell padding="md" header={{ height: 60 }}>
+            <AppShell.Header>
+              <Title px={"md"}>watts-up</Title>
+            </AppShell.Header>
+            <AppShell.Main>{children}</AppShell.Main>
+          </AppShell>
+        </MantineProvider>
         <Scripts />
         <TanStackDevtools
           plugins={[
