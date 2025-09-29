@@ -1,2 +1,14 @@
 .idea
 node_modules
+.DS_Store
+.cache
+.env
+.data
+.output
+.netlify
+dist
+/build/
+/api/
+/server/build
+/public/build
+.tanstack

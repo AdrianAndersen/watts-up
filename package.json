@@ -16,6 +16,7 @@
     "vite": "^7.1.7"
   },
   "devDependencies": {
+    "@netlify/vite-plugin-tanstack-start": "^1.0.1",
     "@tsconfig/strictest": "^2.0.6",
     "@tsconfig/vite-react": "^7.0.1",
     "@types/react": "^19.1.15",
