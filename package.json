@@ -6,10 +6,19 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "prettier": "prettier --write --log-level warn '**/*.{js,mjs,ts,tsx,md,json,yml,css}' --ignore-path=.gitignore",
+    "prettier:check": "prettier --check '**/*.{js,mjs,ts,tsx,md,json,yml,css}' --ignore-path=.gitignore",
+    "lint": "eslint . --ignore-pattern '**/dist/*' --ignore-pattern '**/build/*' --ignore-pattern '**/.tanstack/*'",
+    "lint:fix": "pnpm lint --fix",
+    "typecheck": "tsc --noEmit",
+    "fix": "pnpm '/^(prettier|lint:fix|typecheck)$/'"
   },
   "dependencies": {
+    "@tanstack/react-form": "^1.23.4",
+    "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-router": "^1.132.23",
+    "@tanstack/react-router-ssr-query": "^1.132.23",
     "@tanstack/react-start": "^1.132.24",
     "@vitejs/plugin-react": "^5.0.4",
     "nitro": "npm:nitro-nightly@latest",
@@ -18,11 +27,24 @@
     "vite": "^7.1.7"
   },
   "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@tanstack/eslint-plugin-query": "^5.91.0",
+    "@tanstack/eslint-plugin-router": "^1.132.21",
+    "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-form-devtools": "^0.1.4",
+    "@tanstack/react-query-devtools": "^5.90.2",
+    "@tanstack/react-router-devtools": "^1.132.23",
     "@tsconfig/strictest": "^2.0.6",
     "@tsconfig/vite-react": "^7.0.1",
     "@types/react": "^19.1.15",
     "@types/react-dom": "^19.1.9",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.6.2",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.45.0",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }

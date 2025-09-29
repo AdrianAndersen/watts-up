@@ -5,7 +5,6 @@ node_modules
 .env
 .data
 .output
-.netlify
 dist
 /build/
 /api/
