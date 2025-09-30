@@ -1,6 +1,7 @@
-import { TextInput, type TextInputProps } from "@mantine/core";
+import { TextInput, TextInputProps } from "@mantine/core";
 import validator from "validator";
-import { useFieldContext } from "../../hooks/form.ts";
+
+import { useFieldContext } from "@/hooks/form";
 
 export function emailFieldValidator(value: string) {
   if (!value) return "Du må fylle inn e-post";

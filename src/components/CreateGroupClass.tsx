@@ -1,17 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
 import { Button, Container, Fieldset, Stack, Text, Title } from "@mantine/core";
-import { useAppForm } from "../hooks/form.ts";
+import { notifications } from "@mantine/notifications";
 import { IconBike } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
-import { createNewGroupClass } from "../lib/mywellness.ts";
-import { notifications } from "@mantine/notifications";
-import { emailFieldValidator } from "../components/form/EmailField.tsx";
-import { passwordFieldValidator } from "../components/form/PasswordField.tsx";
-import type { ClassSegment } from "../components/form/ClassSegmentsFileField.tsx";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
+import { ClassSegment } from "@/components/form/ClassSegmentsFileField";
+import { emailFieldValidator } from "@/components/form/EmailField";
+import { passwordFieldValidator } from "@/components/form/PasswordField";
+import { useAppForm } from "@/hooks/form";
+import { createNewGroupClass } from "@/lib/mywellness";
 
 export interface CreateClassForm {
   email: string;
@@ -29,7 +26,7 @@ const defaultValues: CreateClassForm = {
   segments: null,
 };
 
-function Index() {
+export default function CreateGroupClass() {
   const createGroupClassMutation = useMutation({
     mutationFn: async (data: CreateClassForm) => {
       const createData = await createNewGroupClass(data, "TODO");
@@ -55,6 +52,7 @@ function Index() {
       createGroupClassMutation.mutate(value);
     },
   });
+
   return (
     <Container>
       <Stack gap={"xs"}>
@@ -110,7 +108,7 @@ function Index() {
               !value ? "Du må laste opp timedetaljer" : null,
           }}
         >
-          {(field) => <field.ClassDetailsFileField />}
+          {(field) => <field.ClassSegmentsFileField />}
         </form.AppField>
         <form.AppForm>
           <form.ErrorSummary />

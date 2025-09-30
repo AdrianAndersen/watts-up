@@ -1,4 +1,4 @@
-import type { CreateClassForm } from "../routes";
+import { CreateClassForm } from "@/components/CreateGroupClass";
 
 export async function createNewGroupClass(
   data: CreateClassForm,

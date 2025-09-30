@@ -1,9 +1,10 @@
 import { createFormHookContexts, createFormHook } from "@tanstack/react-form";
-import TextField from "../components/form/TextField.tsx";
-import ErrorSummary from "../components/form/ErrorSummary.tsx";
-import EmailField from "../components/form/EmailField.tsx";
-import PasswordField from "../components/form/PasswordField.tsx";
-import ClassSegmentsFileField from "../components/form/ClassSegmentsFileField.tsx";
+
+import ClassSegmentsFileField from "@/components/form/ClassSegmentsFileField";
+import EmailField from "@/components/form/EmailField";
+import ErrorSummary from "@/components/form/ErrorSummary";
+import PasswordField from "@/components/form/PasswordField";
+import TextField from "@/components/form/TextField";
 
 const { fieldContext, formContext, useFieldContext, useFormContext } =
   createFormHookContexts();
@@ -13,7 +14,7 @@ const { useAppForm } = createFormHook({
     EmailField,
     PasswordField,
     TextField,
-    ClassDetailsFileField: ClassSegmentsFileField,
+    ClassSegmentsFileField,
   },
   formComponents: {
     ErrorSummary,

@@ -1,5 +1,6 @@
-import { PasswordInput, type PasswordInputProps } from "@mantine/core";
-import { useFieldContext } from "../../hooks/form.ts";
+import { PasswordInput, PasswordInputProps } from "@mantine/core";
+
+import { useFieldContext } from "@/hooks/form";
 
 export function passwordFieldValidator(value: string) {
   if (!value) return "Du må fylle inn passord";

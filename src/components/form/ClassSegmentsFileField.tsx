@@ -1,8 +1,9 @@
-import { FileInput, type FileInputProps } from "@mantine/core";
-import { useFieldContext } from "../../hooks/form.ts";
-import { IconFileUpload } from "@tabler/icons-react";
-import Papa from "papaparse";
-import { notifications } from "@mantine/notifications";
+import CSVImporter from "@importcsv/react";
+import { Button } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconCloudUpload } from "@tabler/icons-react";
+
+import { useFieldContext } from "@/hooks/form";
 
 export interface ClassSegment {
   durationInSeconds: number;
@@ -13,73 +14,60 @@ export interface ClassSegment {
   blockLabel: string;
 }
 
-function parseSegments(data: string[][]) {
-  console.log(data);
-  return [] as ClassSegment[];
-}
-
-export default function ClassSegmentsFileField(props: FileInputProps) {
+export default function ClassSegmentsFileField() {
   const field = useFieldContext<ClassSegment[] | null>();
+  const [opened, { open, close }] = useDisclosure();
 
   return (
-    <FileInput
-      required
-      label={"Timedetaljer"}
-      placeholder={"Velg fil (csv)"}
-      leftSection={<IconFileUpload />}
-      accept="csv,text/csv"
-      clearable
-      {...props}
-      onChange={(file: File | null) => {
-        if (!file) return field.handleChange(null);
-
-        const reader = new FileReader();
-        reader.onload = () => {
-          Papa.parse<string[]>(reader.result as string, {
-            header: false,
-            skipEmptyLines: true,
-            complete: ({ data, errors }) => {
-              if (errors.length) {
-                notifications.show({
-                  title: "Klarte ikke parse CSV-fil!",
-                  message: `Feilmelding: ${errors.join(", ")} (se console.error([...]) for flere detaljer.`,
-                  color: "red",
-                  autoClose: 6000,
-                });
-                console.error("File parse errors:", errors.join(", "));
-                return;
-              }
-              const segments = parseSegments(data);
-              if (segments !== null) {
-                field.handleChange(segments);
-              }
-            },
-            error: (error: unknown) => {
-              notifications.show({
-                title: "Klarte ikke parse CSV-fil!",
-                message: `Feilmelding: ${error} (se console.error([...]) for flere detaljer.`,
-                color: "red",
-                autoClose: 6000,
-              });
-              console.error("File parse error:", error);
-            },
-          });
-        };
-
-        reader.onerror = (err) => {
-          notifications.show({
-            title: "Klarte ikke lese CSV-fil!",
-            message: `Feilmelding: ${err} (se console.error([...]) for flere detaljer.`,
-            color: "red",
-            autoClose: 6000,
-          });
-          console.error("File read error:", err);
-        };
-
-        reader.readAsText(file);
-      }}
-      onBlur={field.handleBlur}
-      error={field.state.meta.errors.join(", ")}
-    />
+    <>
+      <Button leftSection={<IconCloudUpload />} onClick={open}>
+        Velg fil (csv)
+      </Button>
+      <CSVImporter
+        modalOnCloseTriggered={close}
+        modalIsOpen={opened}
+        columns={[
+          {
+            id: "durationInSeconds",
+            label: "durationInSeconds",
+            validators: [{ type: "required" }],
+          },
+          {
+            id: "startWattPercentage",
+            label: "startWattPercentage",
+            validators: [{ type: "required" }, { type: "min", value: 0 }],
+          },
+          {
+            id: "endWattPercentage",
+            label: "endWattPercentage",
+            validators: [{ type: "required" }, { type: "min", value: 0 }],
+          },
+          {
+            id: "rpm",
+            label: "rpm",
+            validators: [
+              { type: "required" },
+              { type: "min", value: 50 },
+              { type: "max", value: 150 },
+            ],
+          },
+          {
+            id: "notes",
+            label: "notes",
+            validators: [{ type: "required" }],
+          },
+          {
+            id: "blockLabel",
+            label: "blockLabel",
+            validators: [{ type: "required" }],
+          },
+        ]}
+        onComplete={(data) => {
+          field.handleChange(null);
+          console.log(data);
+          close();
+        }}
+      />
+    </>
   );
 }

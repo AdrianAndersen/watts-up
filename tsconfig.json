@@ -1,6 +1,17 @@
 {
   "extends": [
     "@tsconfig/strictest/tsconfig.json",
-    "@tsconfig/vite-react/tsconfig.json"
-  ]
+    "@tsconfig/next/tsconfig.json"
+  ],
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "target": "ESNext",
+    "baseUrl": ".",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }

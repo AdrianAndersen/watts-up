@@ -1,5 +1,6 @@
-import { TextInput, type TextInputProps } from "@mantine/core";
-import { useFieldContext } from "../../hooks/form.ts";
+import { TextInput, TextInputProps } from "@mantine/core";
+
+import { useFieldContext } from "@/hooks/form";
 
 export default function TextField(props: TextInputProps) {
   const field = useFieldContext<string>();

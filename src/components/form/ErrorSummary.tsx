@@ -1,6 +1,7 @@
 import { Alert, List } from "@mantine/core";
-import { useFormContext } from "../../hooks/form.ts";
 import { IconExclamationCircle } from "@tabler/icons-react";
+
+import { useFormContext } from "@/hooks/form";
 
 export default function ErrorSummary({
   serverErrors = [],
