@@ -1,11 +1,11 @@
-import type { ClassData } from "../routes";
+import type { CreateClassForm } from "../routes";
 
-export async function createNewGroupClass({
-  className,
-  accessToken,
-}: ClassData) {
+export async function createNewGroupClass(
+  data: CreateClassForm,
+  accessToken: string,
+) {
   const response = await fetch(
-    "https://services.mywellness.com/staminaski/Training/Facility/1969943e-fb6a-4378-95cf-54737a83d81d/CreateNewPhysicalActivity?_c=nb-NO",
+    `https://services.mywellness.com/${data.club}/Training/Facility/1969943e-fb6a-4378-95cf-54737a83d81d/CreateNewPhysicalActivity?_c=nb-NO`,
     {
       method: "POST",
       headers: new Headers({
@@ -17,7 +17,7 @@ export async function createNewGroupClass({
         canCreateType: "CardioAdvancedProfile",
         context: "ClassProfile",
         createOnEquipmentId: "53a39729-76df-4506-b0d4-eca20b4c7293",
-        name: className,
+        name: data.className,
         whoCanUseIt: "OnlyTheAuthor",
         advancedProfileCategoryType: "Classes",
         target: "Duration",

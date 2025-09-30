@@ -1,29 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button, Container, Stack, Text, Title } from "@mantine/core";
+import { Button, Container, Fieldset, Stack, Text, Title } from "@mantine/core";
 import { useAppForm } from "../hooks/form.ts";
 import { IconBike } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 import { createNewGroupClass } from "../lib/mywellness.ts";
 import { notifications } from "@mantine/notifications";
+import { emailFieldValidator } from "../components/form/EmailField.tsx";
+import { passwordFieldValidator } from "../components/form/PasswordField.tsx";
+import type { ClassSegment } from "../components/form/ClassSegmentsFileField.tsx";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-export interface ClassData {
-  accessToken: string;
+export interface CreateClassForm {
+  email: string;
+  password: string;
+  club: string;
   className: string;
+  segments: ClassSegment[] | null;
 }
 
-const defaultValues: ClassData = {
-  accessToken: "",
+const defaultValues: CreateClassForm = {
+  email: "",
+  password: "",
+  club: "staminaski",
   className: "",
+  segments: null,
 };
 
 function Index() {
   const createGroupClassMutation = useMutation({
-    mutationFn: async (classData: ClassData) => {
-      const createData = await createNewGroupClass(classData);
+    mutationFn: async (data: CreateClassForm) => {
+      const createData = await createNewGroupClass(data, "TODO");
       // TODO: parse response with Zod to get typed response (either error or success response)
       // If error, show error message
       // If success, grab the created ID and use that to populate the class with data
@@ -48,7 +57,7 @@ function Index() {
   });
   return (
     <Container>
-      <Stack>
+      <Stack gap={"xs"}>
         <Stack gap={5}>
           <Title>Opprett MyWellness-gruppetime</Title>
           <Text fs={"italic"} size={"sm"}>
@@ -56,24 +65,26 @@ function Index() {
             Connect time med TerskelWatt%
           </Text>
         </Stack>
-        <form.AppField
-          name={"accessToken"}
-          validators={{
-            onSubmit: ({ value }) =>
-              value.length === 0 ? "Du må fylle inn token" : null,
-          }}
-        >
-          {(field) => (
-            <field.TextField
-              required
-              label={"Token"}
-              description={
-                "Ditt access token fra https://pronext.mywellness.com"
-              }
-              placeholder={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."}
-            />
-          )}
-        </form.AppField>
+        <Fieldset legend={"Din MyWellness-konto"}>
+          <Stack gap={"xs"}>
+            <form.AppField
+              name={"email"}
+              validators={{
+                onSubmit: ({ value }) => emailFieldValidator(value),
+              }}
+            >
+              {(field) => <field.EmailField />}
+            </form.AppField>
+            <form.AppField
+              name={"password"}
+              validators={{
+                onSubmit: ({ value }) => passwordFieldValidator(value),
+              }}
+            >
+              {(field) => <field.PasswordField />}
+            </form.AppField>
+          </Stack>
+        </Fieldset>
         <form.AppField
           name={"className"}
           validators={{
@@ -91,6 +102,15 @@ function Index() {
               placeholder={"Aktiv55 - Release X (Ditt fornavn)"}
             />
           )}
+        </form.AppField>
+        <form.AppField
+          name={"segments"}
+          validators={{
+            onSubmit: ({ value }) =>
+              !value ? "Du må laste opp timedetaljer" : null,
+          }}
+        >
+          {(field) => <field.ClassDetailsFileField />}
         </form.AppField>
         <form.AppForm>
           <form.ErrorSummary />
