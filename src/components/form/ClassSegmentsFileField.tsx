@@ -30,41 +30,54 @@ export default function ClassSegmentsFileField() {
           {
             id: "durationInSeconds",
             label: "durationInSeconds",
-            validators: [{ type: "required" }],
+            type: "number",
+            validators: [{ type: "required" }, { type: "min", value: 1 }],
+            transformations: [{ type: "trim" }],
           },
           {
             id: "startWattPercentage",
             label: "startWattPercentage",
+            type: "number",
             validators: [{ type: "required" }, { type: "min", value: 0 }],
+            transformations: [{ type: "trim" }],
           },
           {
             id: "endWattPercentage",
             label: "endWattPercentage",
+            type: "number",
             validators: [{ type: "required" }, { type: "min", value: 0 }],
+            transformations: [{ type: "trim" }],
           },
           {
             id: "rpm",
             label: "rpm",
+            type: "number",
             validators: [
               { type: "required" },
-              { type: "min", value: 50 },
-              { type: "max", value: 150 },
+              { type: "min", value: 60 },
+              { type: "max", value: 120 },
             ],
+            transformations: [{ type: "trim" }],
           },
           {
             id: "notes",
             label: "notes",
             validators: [{ type: "required" }],
+            transformations: [{ type: "trim" }],
           },
           {
             id: "blockLabel",
             label: "blockLabel",
             validators: [{ type: "required" }],
+            transformations: [{ type: "trim" }],
           },
         ]}
         onComplete={(data) => {
-          field.handleChange(null);
-          console.log(data);
+          const segments =
+            (data?.mappedData?.map(
+              (entry: { data: unknown }) => entry?.data,
+            ) as ClassSegment[]) || null;
+          field.handleChange(segments);
           close();
         }}
       />
