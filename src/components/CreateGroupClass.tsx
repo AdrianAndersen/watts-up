@@ -15,7 +15,7 @@ export interface CreateClassForm {
   password: string;
   club: string;
   className: string;
-  segments: ClassSegment[] | null;
+  segments: ClassSegment[];
 }
 
 const defaultValues: CreateClassForm = {
@@ -23,7 +23,7 @@ const defaultValues: CreateClassForm = {
   password: "",
   club: "staminaski",
   className: "",
-  segments: null,
+  segments: [],
 };
 
 export default function CreateGroupClass() {
@@ -105,7 +105,7 @@ export default function CreateGroupClass() {
           name={"segments"}
           validators={{
             onSubmit: ({ value }) =>
-              !value ? "Du må laste opp timedetaljer" : null,
+              value.length === 0 ? "Du må laste opp progam" : null,
           }}
         >
           {(field) => <field.ClassSegmentsFileField />}

@@ -12,7 +12,7 @@ export default function PasswordField(props: PasswordInputProps) {
   return (
     <PasswordInput
       required
-      label={"Ditt passord"}
+      label={"Passord"}
       type={"password"}
       autoComplete={"current-password"}
       placeholder={"correct horse battery staple"}
