@@ -8,12 +8,11 @@ import { ClassSegment } from "@/components/form/ClassSegmentsFileField";
 import { emailFieldValidator } from "@/components/form/EmailField";
 import { passwordFieldValidator } from "@/components/form/PasswordField";
 import { useAppForm } from "@/hooks/form";
-import { createNewGroupClass } from "@/lib/mywellness";
+import MyWellness from "@/lib/my-wellness";
 
 export interface CreateClassForm {
   email: string;
   password: string;
-  club: string;
   className: string;
   segments: ClassSegment[];
 }
@@ -21,19 +20,41 @@ export interface CreateClassForm {
 const defaultValues: CreateClassForm = {
   email: "",
   password: "",
-  club: "staminaski",
   className: "",
   segments: [],
 };
 
 export default function CreateGroupClass() {
   const createGroupClassMutation = useMutation({
-    mutationFn: async (data: CreateClassForm) => {
-      const createData = await createNewGroupClass(data, "TODO");
+    mutationFn: async ({
+      email,
+      password,
+      className,
+      segments,
+    }: CreateClassForm) => {
+      const loginResponse = await MyWellness.login({
+        username: email,
+        password,
+      });
+      if ("errorMessage" in loginResponse) {
+        notifications.show({
+          title: "Feilmelding",
+          message: loginResponse.errorMessage,
+          color: "red",
+          autoClose: 6000,
+        });
+        return;
+      }
       // TODO: parse response with Zod to get typed response (either error or success response)
       // If error, show error message
       // If success, grab the created ID and use that to populate the class with data
+      const createData = await MyWellness.createNewGroupClass({
+        facilityUrl: loginResponse.facilityUrl,
+        accessToken: loginResponse.token,
+        className,
+      });
       console.log(createData);
+      console.log(segments);
     },
     onError: (error) => {
       notifications.show({
