@@ -11,6 +11,7 @@ import {
   MantineProvider,
   Title,
 } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { IconMusicBolt } from "@tabler/icons-react";
 import Head from "next/head";
@@ -26,17 +27,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body>
         <MantineProvider>
           <Notifications />
-          <ClientProviders>
-            <AppShell padding="md" header={{ height: 60 }}>
-              <AppShell.Header bg={"blue"}>
-                <Group gap={5} px={"md"}>
-                  <IconMusicBolt color={"white"} style={{ marginTop: 7 }} />
-                  <Title c={"white"}>watts-up</Title>
-                </Group>
-              </AppShell.Header>
-              <AppShell.Main>{children}</AppShell.Main>
-            </AppShell>
-          </ClientProviders>
+          <ModalsProvider>
+            <ClientProviders>
+              <AppShell padding="md" header={{ height: 60 }}>
+                <AppShell.Header bg={"blue"}>
+                  <Group gap={5} px={"md"}>
+                    <IconMusicBolt color={"white"} style={{ marginTop: 7 }} />
+                    <Title c={"white"}>watts-up</Title>
+                  </Group>
+                </AppShell.Header>
+                <AppShell.Main>{children}</AppShell.Main>
+              </AppShell>
+            </ClientProviders>
+          </ModalsProvider>
         </MantineProvider>
       </body>
     </html>

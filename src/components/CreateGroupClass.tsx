@@ -1,7 +1,8 @@
 "use client";
 import { Button, Container, Fieldset, Stack, Text, Title } from "@mantine/core";
+import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
-import { IconBike } from "@tabler/icons-react";
+import { IconBike, IconExternalLink } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 
 import { ClassSegment } from "@/components/form/ClassSegmentsFileField";
@@ -75,10 +76,23 @@ export default function CreateGroupClass() {
         });
         return;
       }
-      window.open(
-        `https://pronext.mywellness.com/training/formats/groupcycle/detail/${createResponse.activityId}`,
-        "_blank",
-      );
+      modals.openConfirmModal({
+        title: "Timen har blitt opprettet!",
+        children: <Text>{className} har blitt lastet opp til MyWellness.</Text>,
+        onConfirm: () => {
+          window.open(
+            `https://pronext.mywellness.com/training/formats/groupcycle/detail/${createResponse.activityId}`,
+            "_blank",
+          );
+        },
+        confirmProps: {
+          leftSection: <IconExternalLink />,
+        },
+        labels: {
+          confirm: "Åpne i MyWellness",
+          cancel: "Lukk",
+        },
+      });
     },
     onError: (error) => {
       notifications.show({
