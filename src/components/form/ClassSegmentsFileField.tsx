@@ -37,7 +37,11 @@ export default function ClassSegmentsFileField() {
       ) : (
         <Stack gap={5}>
           <Text fs={"italic"}>Ingen fil valgt</Text>
-          <Button leftSection={<IconCloudUpload />} onClick={open}>
+          <Button
+            color={"green"}
+            leftSection={<IconCloudUpload />}
+            onClick={open}
+          >
             Last opp program (csv)
           </Button>
           <CSVImporter
