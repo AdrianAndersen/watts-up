@@ -10,7 +10,7 @@ import { passwordFieldValidator } from "@/components/form/PasswordField";
 import { useAppForm } from "@/hooks/form";
 import MyWellness from "@/lib/my-wellness";
 
-export interface CreateClassForm {
+interface CreateClassForm {
   email: string;
   password: string;
   className: string;
@@ -38,23 +38,47 @@ export default function CreateGroupClass() {
       });
       if ("errorMessage" in loginResponse) {
         notifications.show({
-          title: "Feilmelding",
+          title: "Klarte ikke logge inn",
           message: loginResponse.errorMessage,
           color: "red",
           autoClose: 6000,
         });
         return;
       }
-      // TODO: parse response with Zod to get typed response (either error or success response)
-      // If error, show error message
-      // If success, grab the created ID and use that to populate the class with data
-      const createData = await MyWellness.createNewGroupClass({
+      const createResponse = await MyWellness.createNewGroupClass({
         facilityUrl: loginResponse.facilityUrl,
         accessToken: loginResponse.token,
         className,
       });
-      console.log(createData);
-      console.log(segments);
+      if ("errorMessage" in createResponse) {
+        notifications.show({
+          title: "Klarte ikke opprette time",
+          message: createResponse.errorMessage,
+          color: "red",
+          autoClose: 6000,
+        });
+        return;
+      }
+
+      const updateResponse = await MyWellness.updateGroupClass({
+        facilityUrl: loginResponse.facilityUrl,
+        accessToken: loginResponse.token,
+        activityId: createResponse.activityId,
+        segments,
+      });
+      if ("errorMessage" in updateResponse || !updateResponse.success) {
+        notifications.show({
+          title: "Klarte ikke oppdatere time",
+          message: updateResponse?.errorMessage ?? "Ukjent feil",
+          color: "red",
+          autoClose: 6000,
+        });
+        return;
+      }
+      window.open(
+        `https://pronext.mywellness.com/training/formats/groupcycle/detail/${createResponse.activityId}`,
+        "_blank",
+      );
     },
     onError: (error) => {
       notifications.show({
