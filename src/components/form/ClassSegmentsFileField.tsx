@@ -1,3 +1,5 @@
+// Remove file does not work with React Compiler
+"use no memo";
 import CSVImporter from "@importcsv/react";
 import { Button, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
