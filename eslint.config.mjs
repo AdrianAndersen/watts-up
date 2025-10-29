@@ -11,8 +11,6 @@ import { createTypeScriptImportResolver } from "eslint-import-resolver-typescrip
 import { importX } from "eslint-plugin-import-x";
 import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths";
 import reactPlugin from "eslint-plugin-react";
-import reactCompiler from "eslint-plugin-react-compiler";
-// eslint-disable-next-line import-x/default
 import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
@@ -29,7 +27,7 @@ export default tseslint.config(
   tseslint.configs.stylistic,
   reactPlugin.configs.flat.recommended,
   reactPlugin.configs.flat["jsx-runtime"],
-  reactHooks.configs["recommended-latest"],
+  reactHooks.configs.flat.recommended,
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
   ...pluginQuery.configs["flat/recommended"],
@@ -46,7 +44,6 @@ export default tseslint.config(
     plugins: {
       "@next/next": nextPlugin,
       "no-relative-import-paths": noRelativeImportPathsPlugin,
-      "react-compiler": reactCompiler,
     },
     settings: {
       react: {
@@ -80,7 +77,6 @@ export default tseslint.config(
       "import-x/no-named-as-default-member": "off",
       "import-x/no-named-as-default": "off",
       "no-relative-import-paths/no-relative-import-paths": "error",
-      "react-compiler/react-compiler": "error",
       /** @see https://medium.com/weekly-webtips/how-to-sort-imports-like-a-pro-in-typescript-4ee8afd7258a */
       "import-x/order": [
         "error",

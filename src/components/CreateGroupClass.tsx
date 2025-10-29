@@ -66,6 +66,7 @@ export default function CreateGroupClass() {
         accessToken: loginResponse.token,
         activityId: createResponse.activityId,
         segments,
+        className,
       });
       if ("errorMessage" in updateResponse || !updateResponse.success) {
         notifications.show({

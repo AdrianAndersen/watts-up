@@ -1,10 +1,10 @@
-// fixme: probably should not need use client here
-"use client";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 
 import {
   AppShell,
+  AppShellHeader,
+  AppShellMain,
   ColorSchemeScript,
   Group,
   mantineHtmlProps,
@@ -30,13 +30,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <ModalsProvider>
             <ClientProviders>
               <AppShell padding="md" header={{ height: 60 }}>
-                <AppShell.Header bg={"blue"}>
+                <AppShellHeader bg={"blue"}>
                   <Group gap={5} px={"md"}>
                     <IconMusicBolt color={"white"} style={{ marginTop: 7 }} />
                     <Title c={"white"}>watts-up</Title>
                   </Group>
-                </AppShell.Header>
-                <AppShell.Main>{children}</AppShell.Main>
+                </AppShellHeader>
+                <AppShellMain>{children}</AppShellMain>
               </AppShell>
             </ClientProviders>
           </ModalsProvider>

@@ -231,11 +231,13 @@ const MyWellness = {
     accessToken,
     activityId,
     segments,
+    className,
   }: {
     facilityUrl: string;
     accessToken: string;
     activityId: string;
     segments: ClassSegment[];
+    className: string;
   }) {
     try {
       const { steps, stepGroups } = convertToPhysicalActivityData(segments);
@@ -250,6 +252,9 @@ const MyWellness = {
           }),
           body: JSON.stringify({
             physicalActivityData: {
+              pictureUploadUrl: "",
+              name: className,
+              whoCanUseItType: "OnlyTheAuthor",
               steps,
               stepGroups,
             },
