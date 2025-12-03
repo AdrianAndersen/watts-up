@@ -59,6 +59,5 @@
   "browserslist": [
     "defaults",
     "not IE 11"
-  ],
-  "packageManager": "pnpm@10.20.0"
+  ]
 }
