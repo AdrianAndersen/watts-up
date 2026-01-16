@@ -5,7 +5,7 @@ import { notifications } from "@mantine/notifications";
 import { IconBike, IconExternalLink } from "@tabler/icons-react";
 import { useMutation } from "@tanstack/react-query";
 
-import { ClassSegment } from "@/components/form/ClassSegmentsFileField";
+import type { ClassSegment } from "@/components/form/ClassSegmentsFileField";
 import { emailFieldValidator } from "@/components/form/EmailField";
 import { passwordFieldValidator } from "@/components/form/PasswordField";
 import { useAppForm } from "@/hooks/form";

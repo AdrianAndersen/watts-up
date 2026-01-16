@@ -6,6 +6,5 @@
   "ignorePatterns": [
     "**/dist/*",
     "**/build/*",
-    "**/.next/*"
   ]
 }

@@ -8,10 +8,8 @@
 **/build/
 .build/
 .out/
-.next/
 .tscache
 *.tsbuildinfo
-next-env.d.ts
 
 # Env files
 .env

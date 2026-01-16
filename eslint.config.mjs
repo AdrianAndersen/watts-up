@@ -3,11 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import eslint from "@eslint/js";
-import nextPlugin from "@next/eslint-plugin-next";
 import pluginQuery from "@tanstack/eslint-plugin-query";
 import tsParser from "@typescript-eslint/parser";
 import eslintConfigPrettier from "eslint-config-prettier";
-import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { importX } from "eslint-plugin-import-x";
 import noRelativeImportPathsPlugin from "eslint-plugin-no-relative-import-paths";
 import reactPlugin from "eslint-plugin-react";
@@ -42,33 +40,25 @@ export default tseslint.config(
       },
     },
     plugins: {
-      "@next/next": nextPlugin,
       "no-relative-import-paths": noRelativeImportPathsPlugin,
     },
     settings: {
       react: {
         version: "detect",
       },
-      "import-x/resolver-next": [
-        createTypeScriptImportResolver({
-          project: PROJECT_PATHS,
-        }),
-      ],
       // Needed for boundaries to import aliases
       "import/resolver": {
         typescript: { project: PROJECT_PATHS, alwaysTryTypes: true },
       },
     },
     rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
       "import-x/no-unused-modules": [
         1,
         {
           unusedExports: true,
           missingExports: true,
           ignoreExports: [
-            "**/*{page,error,loading,layout,spec,config,next-env.d,instrumentation,instrumentation-client,adonisrc,robots}.{ts,tsx}",
+            "**/*{page,error,loading,layout,spec,config,instrumentation,instrumentation-client,adonisrc,robots}.{ts,tsx}",
             "postcss.config.mjs",
             "eslint.config.mjs",
           ],

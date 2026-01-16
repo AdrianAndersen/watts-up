@@ -1,4 +1,5 @@
-import { TextInput, TextInputProps } from "@mantine/core";
+import { TextInput } from "@mantine/core";
+import type { TextInputProps } from "@mantine/core";
 import validator from "validator";
 
 import { useFieldContext } from "@/hooks/form";

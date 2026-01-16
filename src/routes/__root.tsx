@@ -7,23 +7,43 @@ import {
   AppShellMain,
   ColorSchemeScript,
   Group,
-  mantineHtmlProps,
   MantineProvider,
   Title,
+  mantineHtmlProps,
 } from "@mantine/core";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { IconMusicBolt } from "@tabler/icons-react";
-import Head from "next/head";
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from "@tanstack/react-router";
 
 import ClientProviders from "@/components/ClientProviders";
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+      { title: "watts-up" },
+    ],
+  }),
+  component: RootLayout,
+});
+
+function RootLayout() {
   return (
     <html lang="no" {...mantineHtmlProps}>
-      <Head key={"mantine"}>
+      <head>
         <ColorSchemeScript />
-      </Head>
+        <HeadContent />
+      </head>
       <body>
         <MantineProvider>
           <Notifications />
@@ -36,7 +56,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                     <Title c={"white"}>watts-up</Title>
                   </Group>
                 </AppShellHeader>
-                <AppShellMain>{children}</AppShellMain>
+                <AppShellMain>
+                  <Outlet />
+                  <Scripts />
+                </AppShellMain>
               </AppShell>
             </ClientProviders>
           </ModalsProvider>

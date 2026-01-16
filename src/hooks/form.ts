@@ -1,4 +1,4 @@
-import { createFormHookContexts, createFormHook } from "@tanstack/react-form";
+import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
 
 import ClassSegmentsFileField from "@/components/form/ClassSegmentsFileField";
 import EmailField from "@/components/form/EmailField";

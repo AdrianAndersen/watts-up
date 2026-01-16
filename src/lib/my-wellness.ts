@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ClassSegment } from "@/components/form/ClassSegmentsFileField";
+import type { ClassSegment } from "@/components/form/ClassSegmentsFileField";
 
 const ErrorResponse = z.object({
   errors: z.array(

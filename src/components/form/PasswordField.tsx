@@ -1,4 +1,5 @@
-import { PasswordInput, PasswordInputProps } from "@mantine/core";
+import { PasswordInput } from "@mantine/core";
+import type { PasswordInputProps } from "@mantine/core";
 
 import { useFieldContext } from "@/hooks/form";
 
