@@ -6,5 +6,14 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tsconfigPaths(), tanstackStart(), nitro(), viteReact()],
+  plugins: [
+    tsconfigPaths(),
+    tanstackStart(),
+    nitro(),
+    viteReact({
+      babel: {
+        plugins: ["babel-plugin-react-compiler"],
+      },
+    }),
+  ],
 });
