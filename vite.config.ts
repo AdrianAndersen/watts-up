@@ -9,7 +9,13 @@ export default defineConfig({
   plugins: [
     tsconfigPaths(),
     tanstackStart(),
-    nitro(),
+    nitro({
+      vercel: {
+        functions: {
+          runtime: "bun1.x",
+        },
+      },
+    }),
     viteReact({
       babel: {
         plugins: ["babel-plugin-react-compiler"],
