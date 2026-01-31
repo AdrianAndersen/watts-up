@@ -1,5 +1,3 @@
-// Remove file does not work with React Compiler
-"use no memo";
 import CSVImporter from "@importcsv/react";
 import { Button, Group, Stack, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -47,7 +45,8 @@ export default function ClassSegmentsFileField() {
           <CSVImporter
             modalOnCloseTriggered={close}
             modalIsOpen={opened}
-            columns={[
+            columns={[]}
+            dynamicColumns={[
               {
                 id: "durationInSeconds",
                 label: "VarighetSekunder",
@@ -89,21 +88,22 @@ export default function ClassSegmentsFileField() {
                 transformations: [{ type: "trim" }],
               },
             ]}
-            onComplete={(data) => {
+            onComplete={(result) => {
               const segments: ClassSegment[] =
-                data?.mappedData?.map(
-                  ({ data }: { data: Record<string, string> }) => {
-                    return {
-                      durationInSeconds: Number(data["durationInSeconds"]) || 0,
-                      startWattPercentage:
-                        Number(data["startWattPercentage"]) || 0,
-                      endWattPercentage: Number(data["endWattPercentage"]) || 0,
-                      rpm: Number(data["rpm"]) || 0,
-                      notes: data["notes"] || "",
-                      blockLabel: data["blockLabel"] || "",
-                    } satisfies ClassSegment;
-                  },
-                ) || null;
+                result?.rows?.map((row) => {
+                  return {
+                    durationInSeconds:
+                      Number(row._custom_fields?.["durationInSeconds"]) || 0,
+                    startWattPercentage:
+                      Number(row._custom_fields?.["startWattPercentage"]) || 0,
+                    endWattPercentage:
+                      Number(row._custom_fields?.["endWattPercentage"]) || 0,
+                    rpm: Number(row._custom_fields?.["rpm"]) || 0,
+                    notes: String(row._custom_fields?.["notes"]) || "",
+                    blockLabel:
+                      String(row._custom_fields?.["blockLabel"]) || "",
+                  } satisfies ClassSegment;
+                }) || null;
               field.handleChange(segments);
               close();
             }}

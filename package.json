@@ -16,7 +16,7 @@
     "fix": "bun run prettier & bun run lint:fix & bun run typecheck & wait"
   },
   "dependencies": {
-    "@importcsv/react": "^0.2.14",
+    "@importcsv/react": "^0.6.0",
     "@mantine/core": "^8.3.13",
     "@mantine/hooks": "^8.3.13",
     "@mantine/modals": "^8.3.13",
