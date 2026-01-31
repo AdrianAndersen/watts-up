@@ -8,12 +8,12 @@
     "build": "bun --bun vite build",
     "serve": "bun --bun vite preview",
     "start": "bun run .output/server/index.mjs",
-    "prettier": "prettier --write --log-level warn '**/*.{js,mjs,ts,tsx,md,json,yml,css}' --ignore-path=.gitignore",
-    "prettier:check": "prettier --check '**/*.{js,mjs,ts,tsx,md,json,yml,css}' --ignore-path=.gitignore",
+    "prettier": "prettier --write --log-level warn '**/*.{js,mjs,ts,tsx,md,json,yml,css}'",
+    "prettier:check": "prettier --check '**/*.{js,mjs,ts,tsx,md,json,yml,css}'",
     "lint": "eslint . --ignore-pattern '**/dist/*' --ignore-pattern '.tanstack' --ignore-pattern '.output'",
-    "lint:fix": "pnpm lint --fix",
+    "lint:fix": "bun lint --fix",
     "typecheck": "tsc --noEmit",
-    "fix": "pnpm '/^(prettier|lint:fix|typecheck)$/'"
+    "fix": "bun run prettier & bun run lint:fix & bun run typecheck & wait"
   },
   "dependencies": {
     "@importcsv/react": "^0.2.14",
