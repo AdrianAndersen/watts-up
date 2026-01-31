@@ -14,16 +14,14 @@ import {
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
 import { IconMusicBolt } from "@tabler/icons-react";
-import { TanStackDevtools } from "@tanstack/react-devtools";
-import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   HeadContent,
   Outlet,
   Scripts,
   createRootRoute,
 } from "@tanstack/react-router";
+
+import ClientProviders from "@/components/ClientProviders";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -47,20 +45,10 @@ function RootLayout() {
         <HeadContent />
       </head>
       <body>
-        <QueryClientProvider
-          client={
-            new QueryClient({
-              defaultOptions: {
-                queries: {
-                  staleTime: 60 * 1000,
-                },
-              },
-            })
-          }
-        >
-          <MantineProvider>
-            <Notifications />
-            <ModalsProvider>
+        <MantineProvider>
+          <Notifications />
+          <ModalsProvider>
+            <ClientProviders>
               <AppShell padding="md" header={{ height: 60 }}>
                 <AppShellHeader bg={"blue"}>
                   <Group gap={5} px={"md"}>
@@ -73,18 +61,9 @@ function RootLayout() {
                   <Scripts />
                 </AppShellMain>
               </AppShell>
-            </ModalsProvider>
-          </MantineProvider>
-          <TanStackDevtools
-            plugins={[
-              formDevtoolsPlugin(),
-              {
-                name: "TanStack Query",
-                render: <ReactQueryDevtools />,
-              },
-            ]}
-          />
-        </QueryClientProvider>
+            </ClientProviders>
+          </ModalsProvider>
+        </MantineProvider>
       </body>
     </html>
   );
