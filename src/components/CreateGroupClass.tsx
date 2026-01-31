@@ -1,4 +1,3 @@
-"use client";
 import { Button, Container, Fieldset, Stack, Text, Title } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
