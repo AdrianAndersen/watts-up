@@ -13,7 +13,7 @@
     "lint": "eslint . --ignore-pattern '**/dist/*' --ignore-pattern '.tanstack' --ignore-pattern '.output'",
     "lint:fix": "bun lint --fix",
     "typecheck": "tsc --noEmit",
-    "fix": "bun run prettier & bun run lint:fix & bun run typecheck & wait"
+    "fix": "bun run --parallel prettier lint:fix typecheck"
   },
   "dependencies": {
     "@importcsv/react": "^0.6.0",
